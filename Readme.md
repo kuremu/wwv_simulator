@@ -12,12 +12,13 @@
 
         -h, --help             show this help message and exit
         --station [{wwv,wwvh}] station (WWV/WWVH)
-        --date [DATE_STR]      custom start date d/m/y
-        --time [TIME_STR]      custom start time H:M:S
-        --period [PERIOD]      output given duration of audio and exit H:M:S
+        --date [DATE_STR]      custom start date (d/m/y)
+        --time [TIME_STR]      custom start time (H:M:S)
+        --period [PERIOD]      output given duration of audio and exit (H:M:S)
         --clock                output broadcast time to stderr
-        output                 output destination appended to sox. a value of '-'
-                               writes 44.1k 16-bit signed-integer samples to stdout.
+        output                 output destination appended to sox. a value of
+                               '-' writes 1ch 44.1k 16-bit signed-integer
+                               samples to stdout.
 
 **Dependencies**  
 
