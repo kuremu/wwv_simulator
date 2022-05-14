@@ -132,7 +132,7 @@ identical.
 
 ### Time announcement
 The time of day is announced every minute from second 45. WWVH's announcement
-comes first at about 46 seconds and WWV's announcement is at about 52 seconds.
+comes first at about 45 seconds and WWV's announcement is at about 52 seconds.
 This is in case both broadcasts can be heard at once from the same location.
 
 ### Geophysical alerts
