@@ -602,7 +602,7 @@ if __name__ == "__main__":
     data.seek(samples)
 
     # write a few seconds to start
-    out.write(data.read() + data.read() + data.read())
+    out.write(data.read() + data.read() + data.read() + data.read() + data.read() + data.read())
 
     while True:
         out.write(data.read())
