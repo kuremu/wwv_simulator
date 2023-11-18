@@ -13,6 +13,7 @@ import os
 import argparse
 import sys
 import re
+import json
 
 cache = {}
 sox = "sox"
@@ -27,6 +28,8 @@ minute_bytes = second_bytes * 60
 FINALS_CACHE = "9_FINALS.ALL_IAU2000_V2013_019.txt"
 FINALS_URL = "https://datacenter.iers.org/data/latestVersion/9_FINALS.ALL_IAU2000_V2013_019.txt"
 YCOMBINATOR_URL = "https://news.ycombinator.com/"
+HN_TOP = "https://hacker-news.firebaseio.com/v0/topstories.json"
+HN_STORY = "https://hacker-news.firebaseio.com/v0/item/{id}.json"
 GEOALERT_URL = "https://services.swpc.noaa.gov/text/wwv.txt"
 
 class Stations(Flag):
@@ -305,13 +308,20 @@ def io_exp(station, now):
     return merge_audio(io_out, speech_out)
 
 """
+Get HackerNews top posts.
+"""
+def hackernews_posts():
+    ids = json.loads(curl(HN_TOP))[:7]
+    stories = [ json.loads(curl(HN_STORY.format(id=id))) for id in ids ]
+    titles = [ s.get("title") for s in stories ]
+    return ", ".join(titles)
+
+"""
 MARS announcements (HackerNews top posts).
 """
 def mars_announce(station, now):
-    message = curl(YCOMBINATOR_URL)
-    lines = "".join(message.splitlines())
-    st = re.findall(r'class="titlelink">(.*?)</a>', lines)
-    return speak(f"Top posts from news dot why combinator dot com. {'. '.join(st[:7])}", announcers[station], 1, 44)
+    stories = hackernews_posts()
+    return speak(f"Top posts from news dot why combinator dot com. {stories}", announcers[station], 1, 44)
 
 """
 WWVH broadcast availability announcement.
